@@ -42,7 +42,7 @@ ARG yarn_version
 ARG ng_version
 
 #<NODE>##################
-RUN curl -L https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz -o /tmp/node.tar.xz
+RUN curl -Ls https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz -o /tmp/node.tar.xz && ls -l /tmp/node.tar.xz
 RUN tar -Jxf /tmp/node.tar.xz && rm -rf /tmp/node.tar.xz
 RUN cp -rp /node-v*/* /usr/local/ && rm -rf /node-v*
 
