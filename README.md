@@ -7,7 +7,6 @@ Includes
 1. `google-chrome`
 1. `zopfli`
 1. `brotli`
-1. `zopfli`
 1. `node`/`npm`
 1. `yarn` (v1.x)
 
