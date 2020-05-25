@@ -41,6 +41,6 @@ DOCKER_CMD=$(cat <<EOT | xargs
 EOT
 )
 
-test ! -d node_modules && $DOCKER_CMD bash -c "exec yarn"
+test -f package.json && test ! -d node_modules && $DOCKER_CMD bash -c "exec yarn"
 set -x
 exec $DOCKER_CMD bash -c "exec $*"
