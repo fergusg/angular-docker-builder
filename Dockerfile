@@ -3,6 +3,10 @@ FROM ubuntu:18.04
 LABEL author "fergus@gooses.co.uk"
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV node_version=12.16.2
+ENV yarn_version=1.22.4
+ENV ng_version=9.1.6
+
 
 RUN apt-get -y upgrade
 RUN apt-get update
@@ -36,10 +40,6 @@ RUN cd /tmp/su-exec && make && cp su-exec /usr/local/bin
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 RUN apt-get update && apt-get install -y google-chrome-stable
-
-ARG node_version
-ARG yarn_version
-ARG ng_version
 
 #<NODE>##################
 RUN curl -Ls https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz -o /tmp/node.tar.xz && ls -l /tmp/node.tar.xz

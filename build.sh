@@ -2,10 +2,6 @@
 
 set -e
 
-NODE=12.16.2
-YARN=1.22.4
-NGCLI=9.1.6
-
 # BASE is code base
 cd $(dirname $0)
 export BASE=$(pwd)
@@ -53,9 +49,6 @@ function compile() {
     set -x
     echo "Compiling docker"
     docker build . --rm \
-        --build-arg node_version=${NODE} \
-        --build-arg yarn_version=${YARN} \
-        --build-arg ng_version=${NGCLI} \
         -t $DOCKER_IMAGE:latest \
         -f Dockerfile
 
