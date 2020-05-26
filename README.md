@@ -36,6 +36,21 @@ $ ./run.sh ./compress.sh
 which does lots of extra compression of assets, specifically with `brotli` and `zopfli`.   You will need to
 configure your webserver to server pre-compressed assets.
 
+## New Angular Projects
+
+Here's what I do.
+
+```bash
+$ cd ~/Projects
+$ ls -s angular-docker-builder/run.sh
+$ ./run.sh ng new my-new-prj --skip-git
+$ cd my-new-prj
+$ git init
+$ cp ../angular-docker-builder/examples/* .
+$ ./run.sh echo tada
+```
+
+`git` inside the docker container doesn't work very well as we don't mount the git credentials.
 
 ## Thanks to...
 
