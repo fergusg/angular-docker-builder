@@ -4,9 +4,7 @@ cd $(dirname $0)
 
 export HERE=$(pwd)
 
-DOCKER_REPO=fergusg
-DOCKER_IMAGE=angular-docker-builder
-TAG=latest
+IMAGE=fergusg/angular-docker-builder:latest
 CONTAINER=my-proj
 
 CI=${CI}
@@ -37,7 +35,7 @@ DOCKER_CMD=$(cat <<EOT | xargs
         -e LOCAL_USER_ID=$ID \
         -e CI="$CI" \
         --cap-add=SYS_ADMIN \
-        $DOCKER_REPO/$DOCKER_IMAGE:$TAG
+        $IMAGE
 EOT
 )
 
