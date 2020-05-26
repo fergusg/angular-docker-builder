@@ -35,3 +35,8 @@ $ ./run.sh ./compress.sh
 
 which does lots of extra compression of assets, specifically with `brotli` and `zopfli`.   You will need to
 configure your webserver to server pre-compressed assets.
+
+
+## Thanks to...
+
+This code includes a copy of `su-exec` from https://github.com/ncopa/su-exec
