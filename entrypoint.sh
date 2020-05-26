@@ -15,6 +15,7 @@ export YARN_CACHE_FOLDER=/cache/yarn
 mkdir -p /cache/npm
 chown user /cache/npm
 su-exec user npm config set cache /cache/npm
+touch $HOME/.sudo_as_admin_successful
 
 echo -n "UID: $USER_ID; "
 cat /versions.txt
