@@ -4,8 +4,10 @@ cd $(dirname $0)
 
 export HERE=$(pwd)
 
+# Suggest: fix version, vX.Y, not latest
 IMAGE=fergusg/angular-docker-builder:latest
-CONTAINER=my-proj
+# Suggest: unique project name
+CONTAINER=$(basename $HERE)
 
 CI=${CI}
 
