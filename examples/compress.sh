@@ -62,7 +62,7 @@ function make_gzip() {
 }
 
 function _gzip() {
-    local f=$1
+    local f="$1"
 
     if ! should_make "$f" gz; then
         return
