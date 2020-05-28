@@ -4,8 +4,6 @@
 #   brotli: (.br) optimized compression for web assets
 #
 
-cd $(dirname $0)
-
 function fix_attr() {
     # only root can do this, in general
     if [ $(id -u) = "0" ]; then
@@ -115,6 +113,11 @@ function _brotli() {
 
 VERBOSE=
 tty -s && VERBOSE=1
+
+if test ! -d "dist"; then
+    echo "'dist' directory does not exist"
+    exit 1
+fi
 
 make_gzip dist/
 # Must come after gzip

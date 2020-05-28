@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd $(dirname $0)
-
 export HERE=$(pwd)
 
 # Suggest: fix version, vX.Y, not latest
