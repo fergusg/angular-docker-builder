@@ -3,10 +3,9 @@ FROM ubuntu:18.04
 LABEL author "fergus@gooses.co.uk"
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV node_version=12.16.2
+ENV node_version=12.17.0
 ENV yarn_version=1.22.4
-ENV ng_version=9.1.6
-
+ENV ng_version=9.1.7
 
 RUN apt-get -y upgrade
 RUN apt-get update
