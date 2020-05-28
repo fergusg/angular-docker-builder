@@ -10,8 +10,7 @@ if [ -f ".env" ]; then
     source .env
 fi
 
-# DOCKER_REPO=${DOCKER_REPO}
-DOCKER_IMAGE=${DOCKER_IMAGE:-"angular-docker-builder"}
+DOCKER_REPO=${DOCKER_REPO:-fergusg/angular-docker-builder}
 
 # Set docker image tag
 #   1. as envvar
@@ -34,8 +33,6 @@ set -o nounset
 # quick and dirty test to check vars are set
 echo $DOCKER_REPO > /dev/null
 
-DOCKER_IMAGE_TAGGED="$DOCKER_REPO/$DOCKER_IMAGE:$TAG"
-
 function login() {
     echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
 }
@@ -49,13 +46,12 @@ function compile() {
     set -x
     echo "Compiling docker"
     docker build . --rm \
-        -t $DOCKER_IMAGE:latest \
+        -t $DOCKER_REPO:latest \
         -f Dockerfile
 
     set +x
-    docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE_TAGGED
     if [ $TAG != latest ]; then
-        docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:$TAG
+        docker tag $DOCKER_REPO:latest $DOCKER_REPO:$TAG
     fi
     if [ -z "$PUSH" ]; then
         echo "Use -p to publish"
@@ -66,10 +62,9 @@ function compile() {
 function push() {
     login
 
-    docker tag $DOCKER_IMAGE:latest "$DOCKER_REPO/$DOCKER_IMAGE:latest"
-    docker push $DOCKER_REPO/$DOCKER_IMAGE:latest
+    docker push $DOCKER_REPO:latest
     if [ $TAG != latest ]; then
-        docker push $DOCKER_IMAGE_TAGGED
+        docker push $DOCKER_REPO:$TAG
     fi
     exit 0
 }
@@ -80,7 +75,6 @@ while getopts $OPTS opt; do
         t)
             # Use alternative image in addition to latest of "latest"
             TAG=$OPTARG
-            DOCKER_IMAGE_TAGGED="$DOCKER_REPO/$DOCKER_IMAGE:$TAG"
             ;;
         c)
             # Compile docker image
@@ -140,7 +134,7 @@ DOCKER_CMD=$( cat <<EOT
         -v $HOME/.cache/yarn:/cache/yarn \
         -v $HOME/.npm,dst=/cache/npm \
         -e LOCAL_USER_ID=$ID \
-        $DOCKER_IMAGE_TAGGED
+        $DOCKER_REPO:$TAG
 EOT
 )
 
