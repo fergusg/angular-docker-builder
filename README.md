@@ -42,7 +42,7 @@ Here's what I do.
 
 ```bash
 $ cd ~/Projects
-$ ls -s angular-docker-builder/run.sh
+$ ls -s angular-docker-builder/examples/run.sh
 $ ./run.sh ng new my-new-prj --skip-git
 $ cd my-new-prj
 $ git init
@@ -51,6 +51,21 @@ $ ./run.sh echo tada
 ```
 
 `git` inside the docker container doesn't work very well as we don't mount the git credentials.
+
+## Drawbacks
+
+There seem to be relatively few:
+
+1. Most obvious is that some colorization is lost.
+1. As above, need `ng new --skip-git` 
+1. `yarn` is the default node package manager (easy to change, *per* project)
+
+# MacOS performance
+
+There is a know issue with file performance on Macs.  For example, an 
+`npm install` - which might take a minute on Linux - can take 15 on a Mac (at massive CPU).
+
+This probably makes this project at least partially useless for MacOS
 
 ## Thanks to...
 
