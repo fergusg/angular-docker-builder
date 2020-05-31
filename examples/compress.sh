@@ -42,8 +42,8 @@ function should_make() {
 function pc() {
     local f="$1"
     local t="$2"
-    PRE=$(wc -c < "$f")
-    POST=$(wc -c < "$t")
+    local PRE=$(wc -c < "$f")
+    local POST=$(wc -c < "$t")
     echo $(awk "BEGIN { pc=100*${POST}/${PRE}; print int(100-pc) }")
 }
 
@@ -67,9 +67,9 @@ function _gzip() {
     fi
     # some shell funties...
     ( zopfli "$f" )
-    t=$(mktemp)
+    local t=$(mktemp)
     gzip -6 - < "$f" > "$t"
-    percent=$(pc "$t" "$f.gz")
+    local percent=$(pc "$t" "$f.gz")
     test $VERBOSE && echo "zopfli $f (${percent}% vs. gzip)"
     rm "$t"
 
@@ -98,7 +98,7 @@ function _brotli() {
     local t=$(mktemp)
     brotli --force --output="$t" "$f"
 
-    percent=$(pc "$f.gz" "$t")
+    local percent=$(pc "$f.gz" "$t")
     if [ $percent -lt 0 ]; then
         test $VERBOSE && echo "brotli $f **** NOT SAVING VS GZIP (${percent}%) ****"
         rm $t
