@@ -38,18 +38,18 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get update && apt-get install -y google-chrome-stable
 
 #<NODE>##################
-ENV node_version=12.17.0
+ENV node_version=12.18.4
 RUN curl -Ls https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz -o /tmp/node.tar.xz && ls -l /tmp/node.tar.xz
 RUN tar -Jxf /tmp/node.tar.xz && rm -rf /tmp/node.tar.xz
 RUN cp -rp /node-v*/* /usr/local/ && rm -rf /node-v*
 
 #<YARN>##################
-ENV yarn_version=1.22.4
+ENV yarn_version=1.22.5
 RUN curl -L https://github.com/yarnpkg/yarn/releases/download/v${yarn_version}/yarn_${yarn_version}_all.deb -o /tmp/yarn.deb
 RUN dpkg -i /tmp/yarn.deb && rm /tmp/yarn.deb
 
 #<ANGULAR-CLI>##########
-ENV ng_version=9.1.7
+ENV ng_version=10.1.3
 RUN yarn global add @angular/cli@${ng_version}
 RUN yarn global add sass
 RUN ng config -g cli.packageManager yarn
