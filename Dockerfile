@@ -15,7 +15,8 @@ RUN apt-get install -y gcc make xz-utils git libpng-dev g++ pkg-config
 #<EXTRAS>################
 RUN apt-get install rsync rpm file -y
 # compression goodies
-RUN apt-get install -y webp zopfli brotli
+RUN apt-get update
+RUN apt-get install -y webp zopfli brotli webp
 
 #########################
 # This is important magic.   Since docker runs as root, anything it creates
@@ -38,7 +39,7 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get update && apt-get install -y google-chrome-stable
 
 #<NODE>##################
-ENV node_version=12.18.4
+ENV node_version=14.17.0
 RUN curl -Ls https://nodejs.org/dist/v${node_version}/node-v${node_version}-linux-x64.tar.xz -o /tmp/node.tar.xz && ls -l /tmp/node.tar.xz
 RUN tar -Jxf /tmp/node.tar.xz && rm -rf /tmp/node.tar.xz
 RUN cp -rp /node-v*/* /usr/local/ && rm -rf /node-v*
@@ -49,7 +50,7 @@ RUN curl -L https://github.com/yarnpkg/yarn/releases/download/v${yarn_version}/y
 RUN dpkg -i /tmp/yarn.deb && rm /tmp/yarn.deb
 
 #<ANGULAR-CLI>##########
-ENV ng_version=10.1.3
+ENV ng_version=12.0.0
 RUN yarn global add @angular/cli@${ng_version}
 RUN yarn global add sass
 RUN ng config -g cli.packageManager yarn
